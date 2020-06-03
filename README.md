@@ -1,6 +1,6 @@
 # Склеивалка картинок с денойзером
 
-Хелловорлд для OpenCV. Умеет сшивать горизонтальные фото (нужен, понятное дело, оверлап) и денойзить. В папке с картинками находится две папки - исходные картинки и картинки с шумом. Шум добавлялся тупо в гимпе.
+Хелловорлд для OpenCV. Умеет сшивать горизонтальные фото и видео и денойзить. В папке с картинками находится две папки - исходные картинки и картинки с шумом. Шум добавлялся тупо в гимпе. В папке с видео находятся три видео - исходное видео и две её части, полученные тупо разрезанием исходного видео.
 
 ## Зависимости
 
@@ -12,7 +12,7 @@ numpy
 ```
 
 ## Использование
-Три параметра:
+У `image_stitching.py` три параметра:
 - `-m --method` - метод денойзинга. Может быть Gaussian, Bilateral, FastNl, none.
 - `-i --images` - путь к директории с картинками, которые будем сшивать.
 - `-o --output` - путь к выходной картинке.
@@ -25,6 +25,19 @@ $ python image_stitching.py -i .\images\room_noisy -o output-denoised-Bilateral.
 $ python image_stitching.py -i .\images\room_noisy -o output-noisy.jpg -m none
 $ python image_stitching.py -i .\images\room_default -o output-default.jpg -m none
 ```
+
+У `video_stitching.py` три параметра:
+- `-m --method` - метод денойзинга. Может быть Gaussian, Bilateral, FastNl, none. На моём железе none выдаёт ~2 фпс, с FastNl на производительность смотреть грустно. Рекомендую запускать с none или с фильтрами. В OpenCV есть метод, который осуществляет Fast Non-Local Mean Denoising по нескольким кадрам, но я боюсь за свой компьютер, учитывая, что он будет ещё медленнее однокадрового, а однокадровый тратит на рендер одного кадра по 5-6 секунд.
+- `-l --left` - путь к левому видео.
+- `-r --right` - путь к правому видео.
+
+```
+$ python video_stitching.py -l ./videos/not_noisy/left.mp4 -r ./videos/not_noisy/right.mp4 -m none
+$ python video_stitching.py -l ./videos/noisy/left.mp4 -r ./videos/noisy/right.mp4 -m Gaussian
+$ python video_stitching.py -l ./videos/noisy/left.mp4 -r ./videos/noisy/right.mp4 -m Bilateral
+$ python video_stitching.py -l ./videos/noisy/left.mp4 -r ./videos/noisy/right.mp4 -m FastNl
+```
+
 ## Как это работает?
 
 Сначала мы получаем фотографии, потом создаём объект `cv2.stitcher`. Он принимает в себя фотографии, возвращает одну фотографию и результат (либо 0, то есть `OK`, либо сообщение об ошибке).
@@ -62,6 +75,10 @@ $ python image_stitching.py -i .\images\room_default -o output-default.jpg -m no
 4) **А что будет если не денойзить?**
 ![output-noisy](https://github.com/chameleon-lizard/OpenCV-stitcher/raw/master/output-noisy.jpg "Результат шумная картинка")
 Да ничего хорошего не будет.
+
+### Сшивка видео
+
+В целом, алгоритм абсолютно тот же. Видео покадрово считываются, при надобности обрабатываются, сшиваются воедино и выводятся на экран.
 
 ## Источники
 - [Туториал по склейке с pyimagesearch](https://www.pyimagesearch.com/2018/12/17/image-stitching-with-opencv-and-python/)

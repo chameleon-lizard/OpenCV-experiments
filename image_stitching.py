@@ -1,10 +1,3 @@
-# Usage:
-# python image_stitching.py -i .\images\room_noisy -o output-denoised-FastNl.jpg -m FastNl
-# python image_stitching.py -i .\images\room_noisy -o output-denoised-Gaussian.jpg -m Gaussian
-# python image_stitching.py -i .\images\room_noisy -o output-denoised-Bilateral.jpg -m Bilateral
-# python image_stitching.py -i .\images\room_noisy -o output-noisy.jpg -m none
-# python image_stitching.py -i .\images\room_default -o output-default.jpg -m none
-
 from imutils import paths
 import numpy as np
 import argparse
