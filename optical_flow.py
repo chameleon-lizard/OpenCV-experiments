@@ -144,8 +144,8 @@ while(1):
         break
     # Press 's' to save the video
     elif kk == ord('s'):
-        cv2.imwrite('Optical_imag_lefte.png', following)
-        cv2.imwrite('HSV_converted_imag_lefte.png', rgb_representation)
+        cv2.imwrite('Optical_image.png', following)
+        cv2.imwrite('Optical_flow.png', rgb_representation)
     prvs = following
 
 capture_left.release()
