@@ -58,7 +58,7 @@ while True:
         	pass
 
     # Resizing the stitched frame
-    stitched = imutils.resize(stitched, width=1280, height=720)
+    stitched = imutils.resize(stitched, 1280)
 
     total += 1
     cv2.imshow("Result", stitched)
