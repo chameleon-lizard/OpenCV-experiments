@@ -89,12 +89,12 @@ $ python video_stitching.py -l ./videos/noisy/left.mp4 -r ./videos/noisy/right.m
 Да ничего хорошего не будет.
 
 ### Сшивка видео
-![video_stitching_result](https://github.com/chameleon-lizard/OpenCV-stitcher/raw/master/video_stitching_result.jpg "Результат сшивки видео")
+![video_stitching_result](https://github.com/chameleon-lizard/OpenCV-stitcher/raw/master/video_stitching_result.png "Результат сшивки видео")
 
 В целом, алгоритм абсолютно тот же. Видео покадрово считываются, при надобности обрабатываются, сшиваются воедино и выводятся на экран.
 
 ### Поиск оптического пути
-![optical_flow_result](https://github.com/chameleon-lizard/OpenCV-stitcher/raw/master/optical_flow_result.jpg "Результат поиска оптического потока для сшитых видео")
+![optical_flow_result](https://github.com/chameleon-lizard/OpenCV-stitcher/raw/master/optical_flow_result.png "Результат поиска оптического потока для сшитых видео")
 Это - надстройка над сшивкой видео. Сначала сшивается два кадра из двух видео, переводятся в чб (для повышения производительности это делается до денойза), производится денойз при надобности и картинки сохраняются в виде numpy-массива. Затем происходит то же самое со следующими по порядку кадрами. После этого картинки сравниваются с помощью метода Гуннара-Фарнебака (встроено в OpenCV, подробнее о самом алгоритме чуть дальше). Получившиеся векторы переводятся в цвет (чем ярче, тем больше вектор) и, наконец, выводятся.
 
 ## Источники
